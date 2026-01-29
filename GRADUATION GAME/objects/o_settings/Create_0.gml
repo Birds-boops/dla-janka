@@ -1,1 +1,2 @@
-global.font_main = font_main
+
+global.font_main = font_sans

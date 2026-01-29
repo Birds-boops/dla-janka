@@ -1,7 +1,7 @@
 depth = -999999999;
 //textbox parameters
 txtb_width = 832
-txtb_height = 64*3 + 32
+txtb_height = 64*4
 border = 16;
 line_sep = 40;
 line_width = txtb_width - border * 2
@@ -29,6 +29,13 @@ option_number = 0;
 
 setup = false;
 
+//sound
+snd_delay = 4;
+snd_count = snd_delay;
+
+
 //effects
 scr_set_defaults_for_text();
 last_free_space = 0;
+text_pause_timer = 0;
+text_pause_time = 16;

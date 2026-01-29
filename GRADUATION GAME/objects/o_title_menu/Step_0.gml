@@ -17,7 +17,7 @@ if accept_key {
 			case 0:	
 				switch(pos) {
 					//start
-					case 0: room_goto_next(); break;
+					case 0: audio_stop_all(); room_goto(r_home); break;
 					//ustawienia
 					case 1: menu_level = 1; break;
 					//wyjdź

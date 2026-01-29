@@ -19,3 +19,5 @@ option[1, 2] = "Wróć"
 
 op_length = 0;
 menu_level = 0;
+
+audio_play_sound(snd_main_menu, 1, true)

@@ -1,7 +1,7 @@
 accept_key = keyboard_check_pressed(vk_enter);
 
 textbox_x = camera_get_view_x(view_camera[0]);
-textbox_y = camera_get_view_y(view_camera[0]) + 832;
+textbox_y = camera_get_view_y(view_camera[0]) + 736;
 
 //setup
 if setup == false {
@@ -43,7 +43,7 @@ if setup == false {
 			var _current_txt_w = string_width(_txt_up_to_char) - string_width(char[c, p]);
 			
 			//get the last free space
-			if char[c, p] == "   " {last_free_space = _char_pos+1;}
+			if char[c, p] == " " {last_free_space = _char_pos+1;}
 			
 			//get the line breaks
 			if _current_txt_w - line_break_offset[p] > line_width
@@ -90,12 +90,33 @@ if setup == false {
 }
 	
 //typing the text
-if draw_char < text_length[page] {
+if text_pause_timer <= 0 {
+
+	if draw_char < text_length[page] {
 	
-	draw_char += text_spd;
-	draw_char = clamp(draw_char, 0, text_length[page]);
-	
+		draw_char += text_spd;
+		draw_char = clamp(draw_char, 0, text_length[page]);
+		var _check_char = string_char_at(text[page], draw_char);
+		if _check_char == "." || _check_char == "?" || _check_char == "!" || _check_char == "," {
+			text_pause_timer = text_pause_time;
+			audio_play_sound(snd[page], 8, false);
+		} else {
+			//typing sound
+			if snd_count < snd_delay {
+				snd_count++;
+			} else {
+				snd_count = 0;
+				audio_play_sound(snd[page], 8, false);
+			}
+		}
+	}
+} else {
+	text_pause_timer--;
+
 }
+
+
+
 
 //flip through pages
 if accept_key {
@@ -136,6 +157,16 @@ txtb_img += txtb_img_spd;
 txtb_spr_w = sprite_get_width(txtb_spr[page]);
 txtb_spr_h = sprite_get_height(txtb_spr[page]);
 
+//draw the person speaking
+if speaker_sprite != noone {
+		sprite_index = speaker_sprite[page];
+		if draw_char == text_length[page] {image_index = 0}
+		var _speaker_x = textbox_x + portrait_x_offset[page];
+		if speaker_side[page] == -1 {_speaker_x += sprite_width}
+		//draw speaker
+		draw_sprite_ext(txtb_spr[page], txtb_img, textbox_x + portrait_x_offset[page], textbox_y, sprite_width/txtb_spr_w, sprite_height/txtb_spr_h, 0, c_white, 1)
+		draw_sprite_ext(sprite_index, image_index, _speaker_x, textbox_y, speaker_side[page], 1, 0, c_white, 1 );
+	}
 
 // back of txtbox
 draw_sprite_ext(txtb_spr[page], txtb_img,_txtb_x, _txtb_y, txtb_width/txtb_spr_w, txtb_height/txtb_spr_h, 0, c_white, 1);
@@ -173,7 +204,7 @@ if draw_char == text_length[page] && page == page_number - 1 {
 //draw the text
 //var _drawtxt = string_copy(text[page], 1, draw_char);
 //draw_text_ext(_txtb_x + border, _txtb_y + border, _drawtxt, line_sep, line_width);
-var temp = scr_game_text("wiewiorka - good")
+//var temp = scr_game_text("wiewiorka - good")
 for (var c = 0; c < draw_char; c++) {
 	//the text
 	draw_text(char_x[c, page], char_y[c, page], char[c, page]);
