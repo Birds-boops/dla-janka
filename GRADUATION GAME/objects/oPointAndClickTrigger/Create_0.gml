@@ -1,0 +1,1 @@
+varRoom = NaN //rPointAndClick

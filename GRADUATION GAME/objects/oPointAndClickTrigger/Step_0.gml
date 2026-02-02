@@ -9,17 +9,7 @@
 if (
     place_meeting(x, y, o_player)
     && keyboard_check_pressed(vk_enter)
-    && !instance_exists(o_textbox)
-    && (!single_use || !used)
 )
 {
-    create_textbox(text_id);
-
-    if (single_use) {
-        used = true;
-    }
-	
-	if(changable != ""){
-			text_id = changable
-	}
+    room_goto(varRoom)
 }

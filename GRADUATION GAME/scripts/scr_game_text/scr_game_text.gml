@@ -3,12 +3,38 @@
 function scr_game_text(_text_id){
 	
 	switch(_text_id){
+		//POINT AND CLICK
+		case "click-1":
+		scr_text("INCORRECT_ITEM", "player-spk")
+		break;
+		
+		case "found-1":
+		scr_text("FOUND_ITEM_1", "player-spk")
+		break;
+		
+		case "found-2":
+		scr_text("FOUND_ITEM_2", "player-spk")
+		break;
+		
+		case "found-3":
+		scr_text("FOUND_ITEM_3", "player-spk")
+		break;
+		
+		
+		
+		
 		//objects
 		case "hotel":
 		scr_text("It's locked", "player-spk")
 		break;
 		case "fountain":
 		scr_text("Someone must really love the mayor....", "player-annoyed")
+		break;
+		
+		
+		
+		case "SAMPLE":
+		scr_text("LOREM IPSUM JUASHFJASHJFAHS.", "player-annoyed")
 		break;
 		
 		//npcs

@@ -1,0 +1,1 @@
+varRoom = r_village
